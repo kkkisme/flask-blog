@@ -1,9 +1,9 @@
 {% extends 'layout/base_layout.html' %}
 {% block content %}
     <article class="media content-section">
-        <img alt="img" class="rounded-circle article-img" src={{ url_for('static', filename='profile_pics/{}'.format(post.author.image_file)) }}>
         <div class="media-body">
             <div class="article-metadata">
+                <img alt="img" class="rounded-circle article-img" src={{ url_for('static', filename='profile_pics/{}'.format(post.author.image_file)) }}>
                 <small class="text-muted">{{ post.author.username }} &nbsp; {{ post.date_posted.strftime('%Y-%m-%d') }}</small>
                 {% if post.author == current_user %}
                     <div>
