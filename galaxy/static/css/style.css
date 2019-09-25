@@ -47,8 +47,9 @@ a.article-title:hover {
 }
 
 .article-img--index {
-  width: 64px;
-  height: 64px;
+  width: 36px;
+  height: 36px;
+  margin-top: 16px;
   margin-right: 16px;
 }
 
