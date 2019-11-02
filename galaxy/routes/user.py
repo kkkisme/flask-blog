@@ -13,17 +13,19 @@ user = Blueprint('user', __name__)
 
 @user.route('/register', methods=['GET', 'POST'])
 def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data)
-        u = User(username=form.username.data, email=form.email.data, password=hashed_password)
-        db.session.add(u)
-        db.session.commit()
-        flash(message=f'Your account has been created! You are now able to log in', category='success')
-        return redirect(url_for('user.login'))
-    return render_template('views/register.html', title='注册', form=form)
+    flash(message=f'暂不提供注册功能', category='warning')
+    return redirect(url_for('main.home'))
+    # if current_user.is_authenticated:
+    #     return redirect(url_for('main.home'))
+    # form = RegistrationForm()
+    # if form.validate_on_submit():
+    #     hashed_password = bcrypt.generate_password_hash(form.password.data)
+    #     u = User(username=form.username.data, email=form.email.data, password=hashed_password)
+    #     db.session.add(u)
+    #     db.session.commit()
+    #     flash(message=f'Your account has been created! You are now able to log in', category='success')
+    #     return redirect(url_for('user.login'))
+    # return render_template('views/register.html', title='注册', form=form)
 
 
 @user.route('/login', methods=['GET', 'POST'])
