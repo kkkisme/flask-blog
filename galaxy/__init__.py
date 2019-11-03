@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
@@ -30,10 +30,17 @@ def create_app():
     app.register_blueprint(post)
     app.register_blueprint(main)
 
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_template('views/404.html'), 404
+
     @app.template_filter()
-    def html2text(t):
+    def html2text(html):
         # convert html to raw text
-        bs = BeautifulSoup(t, 'html.parser')
+        bs = BeautifulSoup(html, 'html.parser')
         return bs.get_text()
 
     return app
+
+
+

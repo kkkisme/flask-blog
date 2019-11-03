@@ -3,9 +3,7 @@ import os
 
 
 class Config:
-    # SQLALCHEMY_DATABASE_URI = 'sqlite:///galaxy.db'
     SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
-    # SQLALCHEMY_DATABASE_URI = 'mysql+cymysql://root:123456@localhost:3306/galaxy'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.environ.get('SECRET_KEY')
     MAIL_SERVER = 'smtp.googlemail.com'
