@@ -1,12 +1,11 @@
 from flask import request, Blueprint, render_template, redirect, url_for, flash, current_app
 from flask_login import login_user, logout_user, current_user, login_required
-from galaxy.models.user import RegistrationForm, LoginForm, AccountForm, ResetPasswordRequestForm, ResetPasswordForm, User
+from galaxy.models.user import LoginForm, AccountForm, ResetPasswordRequestForm, ResetPasswordForm, User
 from galaxy import db, bcrypt, mail
 from flask_mail import Message
 from PIL import Image
 import secrets
 import os
-
 
 user = Blueprint('user', __name__)
 
@@ -127,4 +126,3 @@ def save_picture(form_picture):
     i.save(picture_path)
 
     return picture_fn
-
