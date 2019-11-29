@@ -12,3 +12,4 @@ class Config:
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     REMEMBER_COOKIE_DURATION = timedelta(hours=8)
+    PERMANENT_SESSION_LIFETIME = timedelta(hours=8)
