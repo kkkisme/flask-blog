@@ -8,27 +8,27 @@
                 <div class="form-group">
                     {{ form.title.label(class="form-control-label") }}
                     {% if form.title.errors %}
-                        {{ form.title(class="form-control form-control-lg is-invalid") }}
+                        {{ form.title(class="form-control is-invalid") }}
                         <div class="invalid-feedback">
                             {% for error in form.title.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
-                         {{ form.title(class="form-control form-control-lg") }}
+                         {{ form.title(class="form-control") }}
                     {% endif %}
                 </div>
                 <div class="form-group">
                     {{ form.content.label(class="form-control-label") }}
                     {% if form.content.errors %}
-                        {{ form.content(class="form-control form-control-lg is-invalid") }}
+                        {{ form.content(class="form-control is-invalid") }}
                         <div class="invalid-feedback">
                             {% for error in form.content.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
-                         {{ form.content(class="form-control form-control-lg") }}
+                         {{ form.content(class="form-control") }}
                     {% endif %}
                 </div>
                 <div class="form-group">
@@ -41,20 +41,12 @@
 
 {% block script %}
     {{ super() }}
-    <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+    <script src="{{ url_for('static', filename='js/ckeditor/ckeditor.js') }}"></script>
     <script>
-         CKEDITOR.plugins.addExternal('colorbutton', '{{ url_for('static', filename='js/ckeditor/plugins/colorbutton/') }}');
-         CKEDITOR.plugins.addExternal('floatpanel', '{{ url_for('static', filename='js/ckeditor/plugins/floatpanel/') }}');
-         CKEDITOR.plugins.addExternal('panelbutton', '{{ url_for('static', filename='js/ckeditor/plugins/panelbutton/') }}');
-         CKEDITOR.plugins.addExternal('panel', '{{ url_for('static', filename='js/ckeditor/plugins/panel/') }}');
-         CKEDITOR.plugins.addExternal('autogrow', '{{ url_for('static', filename='js/ckeditor/plugins/autogrow/') }}');
-         CKEDITOR.replace( 'content', {
-             extraPlugins: 'colorbutton,autogrow',
-             autoGrow_minHeight: 200,
-             autoGrow_maxHeight: 600,
-             autoGrow_onStartup: true,
-             autoGrow_bottomSpace: 20,
-             removeButtons: 'About'
-         })
+        ClassicEditor
+            .create( document.querySelector( '#content' ))
+            .catch( error => {
+                console.error( error );
+            } );
     </script>
 {% endblock %}

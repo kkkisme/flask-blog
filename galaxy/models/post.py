@@ -18,5 +18,5 @@ class Post(db.Model):
 
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(max=100)])
-    content = TextAreaField('Content', validators=[DataRequired()])
+    content = TextAreaField('Content')
     submit = SubmitField('Post')
