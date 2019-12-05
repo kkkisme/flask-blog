@@ -1,4 +1,8 @@
 {% extends 'layout/base_layout.html' %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ck-content-style.css') }}"></link>
+{% endblock %}
 {% block content %}
     <article class="media content-section">
         <div class="media-body">
@@ -13,7 +17,7 @@
                 {% endif %}
             </div>
             <h2>{{ post.title }}</h2>
-            <div class="article-content">{{ post.content | safe }}</div>
+            <div class="article-content ck-content">{{ post.content | safe }}</div>
         </div>
     </article>
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">

@@ -34,7 +34,7 @@ class User(db.Model, UserMixin):
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
             user_id = s.loads(token)['user_id']
-        except:
+        except KeyError:
             return None
         return User.query.get(user_id)
 
@@ -103,7 +103,6 @@ class ResetPasswordRequestForm(FlaskForm):
         u = User.query.filter_by(email=email.data).first()
         if not u:
             raise ValidationError('此账户不存在')
-
 
 
 class ResetPasswordForm(FlaskForm):
