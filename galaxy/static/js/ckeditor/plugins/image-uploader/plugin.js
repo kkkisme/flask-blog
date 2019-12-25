@@ -7,16 +7,13 @@ class ImageUploader {
 
     upload() {
         return this.loader.file.then(file => {
-            const fd = new FormData()
             this.xhr = new XMLHttpRequest()
             this.xhr.responseType = 'json'
             this.xhr.onprogress = (event) => {
                 this.loader.uploadTotal = event.total
                 this.loader.uploaded = event.uploaded
             }
-            fd.append('file', file)
             this.xhr.open('POST', this.url)
-            this.xhr.send(fd)
             return new Promise((resolve, reject) => {
                 this._initRequest()
                 this._initListeners(resolve, reject, file)
