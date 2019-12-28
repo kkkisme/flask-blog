@@ -1,6 +1,7 @@
 import json
 import os
 import secrets
+from flask import request
 
 import qiniu
 import requests
@@ -37,7 +38,6 @@ def q_upload():
 
 @api.route('/upload', methods=['POST'])
 def upload():
-    print(request)
     if not current_user.is_authenticated:
         return jsonify({"msg": "login required"}), 401
     file = request.files.get('file')
@@ -48,7 +48,7 @@ def upload():
     file_path = os.path.join(current_app.root_path, 'static/upload', filename)
     i = Image.open(file)
     i.save(file_path)
-    f = File(original_name=f_name, name=filename, ext=f_ext)
+    f = File(original_name=f_name, name=filename, ext=f_ext, create_by=current_user.username)
     db.session.add(f)
     db.session.commit()
     return jsonify({
@@ -56,7 +56,8 @@ def upload():
             "original_name": f_name,
             "name": filename,
             "ext": f_ext,
-            "url": request.host_url + 'static/upload/' + filename
+            "url": request.host_url + 'static/upload/' + filename,
+            "timestamp": f.timestamp.strftime('%Y-%m-%d %X')
         },
         "msg": "ok"
     })
