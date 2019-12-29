@@ -1,7 +1,6 @@
 import json
 import os
 import secrets
-from flask import request
 
 import qiniu
 import requests
