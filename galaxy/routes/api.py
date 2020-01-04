@@ -1,6 +1,7 @@
 import json
 import os
 import secrets
+import hashlib
 
 import qiniu
 import requests
@@ -46,15 +47,24 @@ def upload():
     filename = secrets.token_hex(8) + f_ext
     file_path = os.path.join(current_app.root_path, 'static/upload', filename)
     i = Image.open(file)
-    i.save(file_path)
-    f = File(original_name=f_name, name=filename, ext=f_ext, create_by=current_user.username)
-    db.session.add(f)
-    db.session.commit()
+    md5 = hashlib.md5(i.tobytes()).hexdigest()
+    exist_file = File.query.filter_by(md5=md5).first()
+    if not exist_file:
+        i.save(file_path)
+        f = File(original_name=f_name, md5=md5, name=filename, ext=f_ext, create_by=current_user.username)
+        db.session.add(f)
+        db.session.commit()
+    else:
+        f_name = exist_file.original_name
+        filename = exist_file.name
+        f_ext = exist_file.ext
+        f = exist_file
     return jsonify({
         "data": {
             "original_name": f_name,
             "name": filename,
             "ext": f_ext,
+            "md5": md5,
             "url": request.host_url + 'static/upload/' + filename,
             "timestamp": f.timestamp.strftime('%Y-%m-%d %X')
         },
