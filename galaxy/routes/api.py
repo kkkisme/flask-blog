@@ -11,6 +11,7 @@ from flask_login import current_user
 
 from .. import db
 from ..models.file import File
+from galaxy import rest_login_required
 
 api = Blueprint('api', __name__, url_prefix='/api')
 
@@ -37,9 +38,10 @@ def q_upload():
 
 
 @api.route('/upload', methods=['POST'])
+@rest_login_required
 def upload():
-    if not current_user.is_authenticated:
-        return jsonify({"msg": "login required"}), 401
+    # if not current_user.is_authenticated:
+    #     return jsonify({"msg": "login required"}), 401
     file = request.files.get('file')
     if not file:
         return jsonify({'msg': 'need a file to upload'}), 400

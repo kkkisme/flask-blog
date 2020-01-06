@@ -48,6 +48,7 @@ a.article-title:hover {
 .article-img {
   height: 16px;
   width: 16px;
+  margin-right: 10px;
 }
 
 .article-img--index {
@@ -58,6 +59,8 @@ a.article-title:hover {
 }
 
 .article-metadata {
+  display: flex;
+  align-items: center;
   padding-bottom: 1px;
   margin-bottom: 4px;
   border-bottom: 1px solid #e3e3e3
