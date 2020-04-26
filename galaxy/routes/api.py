@@ -63,7 +63,7 @@ def upload():
         f = exist_file
     return jsonify({
         "data": {
-            "original_name": f_name,
+            "original_name": f_name + f_ext,
             "name": filename,
             "ext": f_ext,
             "md5": md5,
