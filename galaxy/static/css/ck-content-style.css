@@ -166,6 +166,7 @@
 }
 /* ckeditor5-table/theme/table.css */
 .ck-content .table table {
+    width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
     border: 1px double hsl(0, 0%, 70%);
